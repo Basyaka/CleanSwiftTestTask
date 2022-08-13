@@ -11,7 +11,12 @@ protocol DetailBusinessLogic: AnyObject {
 }
 
 // MARK: - WorkerLogic
-protocol DetailWorkerLogic: AnyObject {}
+protocol DetailWorkerLogic: AnyObject {
+    func loadProduct(
+        with stringId: String,
+        completion: @escaping ((Result<DetailDTO.Product, HTTPError>) -> Void)
+    )
+}
 
 // MARK: - PresentationLogic
 protocol DetailPresentationLogic: AnyObject {

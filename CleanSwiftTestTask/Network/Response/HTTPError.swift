@@ -13,5 +13,6 @@ enum HTTPError: Error {
     case timeout
     case unsuccessStatus(Int)
     case incorrectUrl
+    case imageDownloadingFail
     case undefined
 }

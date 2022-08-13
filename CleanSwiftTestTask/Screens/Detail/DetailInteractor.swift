@@ -21,6 +21,14 @@ final class DetailInteractor: DetailBusinessLogic {
 
     // MARK: - DetailBusinessLogic
     func requestInitialData(_ request: Detail.Initial.Request) {
+        worker.loadProduct(with: "6_id_is_a_string") { result in
+            switch result {
+            case .success(let product):
+                print(product)
+            case .failure(let error):
+                break
+            }
+        }
         self.presenter.presentInitialData(Detail.Initial.Response())
     }
 }

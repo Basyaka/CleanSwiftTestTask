@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-protocol HTTPClientProtocol {
+protocol HTTPClientProtocol: AnyObject {
     func request(request: HTTPRequest, completion: @escaping (HTTPResult) -> Void)
 }
 
