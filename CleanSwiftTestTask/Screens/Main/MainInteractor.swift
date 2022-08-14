@@ -76,7 +76,8 @@ final class MainInteractor: MainDataStore {
         let productDTOs = storageWorker.getProducts()
         
         if productDTOs.isEmpty {
-           requestError(Main.Error.Request())
+            requestError(Main.Error.Request())
+            return
         }
         
         let products: [Main.Initial.Response.Product] = productDTOs.map { dto in
