@@ -67,8 +67,7 @@ final class MainInteractor: MainDataStore {
                 self.storageWorker.saveImages(with: self.createImageFiles(with: products))
                 self.loadProductsFromStorage()
             case .failure:
-                // display alert with fail
-                break
+                self.loadProductsFromStorage()
             }
         }
     }
@@ -77,7 +76,7 @@ final class MainInteractor: MainDataStore {
         let productDTOs = storageWorker.getProducts()
         
         if productDTOs.isEmpty {
-            // display error
+           requestError(Main.Error.Request())
         }
         
         let products: [Main.Initial.Response.Product] = productDTOs.map { dto in
@@ -117,5 +116,9 @@ extension MainInteractor: MainBusinessLogic {
     func requestDataTransmission(_ request: Main.DataTransmission.Request) {
         data = Main.DetatilDataTransmissionModel(productID: request.productID)
         presenter.presentDataTransmission(Main.DataTransmission.Response())
+    }
+    
+    func requestError(_ request: Main.Error.Request) {
+        presenter.presentError(Main.Error.Response())
     }
 }

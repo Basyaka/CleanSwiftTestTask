@@ -10,6 +10,7 @@ import UIKit
 // MARK: - BusinessLogic
 protocol DetailBusinessLogic: AnyObject {
     func requestInitialData(_ request: Detail.Initial.Request)
+    func requestError(_ request: Detail.Error.Request)
 }
 
 // MARK: - WorkerLogic
@@ -30,12 +31,16 @@ protocol DetailStorageWorkerLogic: AnyObject {
 // MARK: - PresentationLogic
 protocol DetailPresentationLogic: AnyObject {
     func presentInitialData(_ response: Detail.Initial.Response)
+    func presentError(_ response: Detail.Error.Response)
 }
 
 // MARK: - DisplayLogic
 protocol DetailDisplayLogic: AnyObject {
     func displayInitialData(_ viewModel: Detail.Initial.ViewModel)
+    func displayError(_ viewModel: Detail.Error.ViewModel)
 }
 
 // MARK: - RoutingLogic
-protocol DetailRoutingLogic: AnyObject {}
+protocol DetailRoutingLogic: AnyObject {
+    func routeToBack()
+}

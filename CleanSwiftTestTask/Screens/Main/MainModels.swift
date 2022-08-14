@@ -43,6 +43,18 @@ enum Main {
         struct ViewModel {}
     }
     
+    enum Error {
+        struct Request {}
+        
+        struct Response {}
+        
+        struct ViewModel {
+            let title: String
+            let subtitle: String
+            let buttonText: String
+        }
+    }
+    
     enum CollectionView {
         struct Section {
             let title: String

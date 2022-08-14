@@ -8,6 +8,13 @@
 import UIKit
 
 final class DetailPresenter {
+    // MARK: - Nested Types
+    private enum Constants {
+        static let errorTitle: String = "Error!"
+        static let errorSubtitle: String = "Sorry, we're working on it. Try later."
+        static let buttonText: String = "Ok"
+    }
+    
     // MARK: - Properties
     weak var viewController: DetailDisplayLogic?
 }
@@ -21,5 +28,14 @@ extension DetailPresenter: DetailPresentationLogic {
             image: response.image
         )
         viewController?.displayInitialData(viewModel)
+    }
+    
+    func presentError(_ response: Detail.Error.Response) {
+        let viewModel = Detail.Error.ViewModel(
+            title: Constants.errorTitle,
+            subtitle: Constants.errorSubtitle,
+            buttonText: Constants.buttonText
+        )
+        viewController?.displayError(viewModel)
     }
 }

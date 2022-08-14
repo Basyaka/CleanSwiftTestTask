@@ -119,4 +119,21 @@ extension MainViewController: MainDisplayLogic {
     
     func displayDataTransmission(_ viewModel: Main.DataTransmission.ViewModel) {
     }
+    
+    func displayError(_ viewModel: Main.Error.ViewModel) {
+        setupActivityIndicator(state: false)
+        
+        let action: (() -> Void) = { [weak self] in
+            self?.requestInitialData()
+        }
+        
+        let alertConfigurationModel = AlertManager.ConfigurationModel(
+            title: viewModel.title,
+            subtitle: viewModel.subtitle,
+            buttonText: viewModel.buttonText,
+            action: action
+        )
+        
+        AlertManager.showAlert(with: alertConfigurationModel, from: self)
+    }
 }

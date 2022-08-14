@@ -12,6 +12,7 @@ import UIKit
 protocol MainBusinessLogic: AnyObject {
     func requestInitialData(_ request: Main.Initial.Request)
     func requestDataTransmission(_ request: Main.DataTransmission.Request)
+    func requestError(_ request: Main.Error.Request)
 }
 
 // MARK: - WorkerLogic
@@ -34,12 +35,14 @@ protocol MainStorageWorkerLogic: AnyObject {
 protocol MainPresentationLogic: AnyObject {
     func presentInitialData(_ response: Main.Initial.Response)
     func presentDataTransmission(_ response: Main.DataTransmission.Response)
+    func presentError(_ response: Main.Error.Response)
 }
 
 // MARK: - DisplayLogic
 protocol MainDisplayLogic: AnyObject {
     func displayInitialData(_ viewModel: Main.Initial.ViewModel)
     func displayDataTransmission(_ viewModel: Main.DataTransmission.ViewModel)
+    func displayError(_ viewModel: Main.Error.ViewModel)
 }
 
 // MARK: - RoutingLogic

@@ -12,7 +12,7 @@ final class DetailInteractor {
     private let presenter: DetailPresentationLogic
     private let networkWorker: DetailNetworkWorkerLogic
     private let storageWorker: DetailStorageWorkerLogic
-
+    
     // MARK: - Initialization
     init(
         presenter: DetailPresentationLogic,
@@ -33,6 +33,20 @@ final class DetailInteractor {
             storageWorker.updateProduct(productObject, description: productDTO.description)
         }
     }
+    
+    private func processFailure() {
+        if let product = storageWorker.getProduct(by: data.productID),
+           !product.description.isEmpty {
+            let response = Detail.Initial.Response(
+                title: product.name,
+                description: product.description,
+                image: self.storageWorker.getImage(by: product.productID)
+            )
+            self.presenter.presentInitialData(response)
+        } else {
+            presenter.presentError(Detail.Error.Response())
+        }
+    }
 }
 
 // MARK: - DetailBusinessLogic
@@ -51,9 +65,13 @@ extension DetailInteractor: DetailBusinessLogic {
                     )
                     self.presenter.presentInitialData(response)
                 }
-            case .failure(let error):
-                break
+            case .failure:
+                self.processFailure()
             }
         }
+    }
+    
+    func requestError(_ request: Detail.Error.Request) {
+        presenter.presentError(Detail.Error.Response())
     }
 }

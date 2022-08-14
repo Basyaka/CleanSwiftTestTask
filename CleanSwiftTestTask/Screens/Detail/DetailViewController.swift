@@ -121,4 +121,21 @@ extension DetailViewController: DetailDisplayLogic {
         imageView.image = viewModel.image
         setupActivityIndicator(state: false)
     }
+    
+    func displayError(_ viewModel: Detail.Error.ViewModel) {
+        setupActivityIndicator(state: false)
+        
+        let action: (() -> Void) = { [weak self] in
+            self?.router.routeToBack()
+        }
+        
+        let alertConfigurationModel = AlertManager.ConfigurationModel(
+            title: viewModel.title,
+            subtitle: viewModel.subtitle,
+            buttonText: viewModel.buttonText,
+            action: action
+        )
+        
+        AlertManager.showAlert(with: alertConfigurationModel, from: self)
+    }
 }

@@ -9,6 +9,9 @@ final class MainPresenter {
     // MARK: - Nested Types
     private enum Constants {
         static let usaCurrencySymbol: String = "$"
+        static let errorTitle: String = "Error!"
+        static let errorSubtitle: String = "Sorry, we're working on it. Try later."
+        static let buttonText: String = "Retry"
     }
     
     // MARK: - Properties
@@ -32,5 +35,14 @@ extension MainPresenter: MainPresentationLogic {
     
     func presentDataTransmission(_ response: Main.DataTransmission.Response) {
         viewController?.displayDataTransmission(Main.DataTransmission.ViewModel())
+    }
+    
+    func presentError(_ response: Main.Error.Response) {
+        let viewModel = Main.Error.ViewModel(
+            title: Constants.errorTitle,
+            subtitle: Constants.errorSubtitle,
+            buttonText: Constants.buttonText
+        )
+        viewController?.displayError(viewModel)
     }
 }

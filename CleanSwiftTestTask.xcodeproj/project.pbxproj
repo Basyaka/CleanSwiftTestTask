@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3606129B28A8FB87002D8D75 /* IndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3606129A28A8FB87002D8D75 /* IndicatorManager.swift */; };
 		360612A228A90CBC002D8D75 /* DetailStorageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360612A128A90CBC002D8D75 /* DetailStorageWorker.swift */; };
+		360612A428A92659002D8D75 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360612A328A92659002D8D75 /* AlertManager.swift */; };
 		3670FB4A28A667B10062D10D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3670FB4928A667B10062D10D /* AppDelegate.swift */; };
 		3670FB4C28A667B10062D10D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3670FB4B28A667B10062D10D /* SceneDelegate.swift */; };
 		3670FB5328A667B10062D10D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3670FB5228A667B10062D10D /* Assets.xcassets */; };
@@ -87,6 +88,7 @@
 /* Begin PBXFileReference section */
 		3606129A28A8FB87002D8D75 /* IndicatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorManager.swift; sourceTree = "<group>"; };
 		360612A128A90CBC002D8D75 /* DetailStorageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailStorageWorker.swift; sourceTree = "<group>"; };
+		360612A328A92659002D8D75 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		3670FB4628A667B10062D10D /* CleanSwiftTestTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CleanSwiftTestTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3670FB4928A667B10062D10D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3670FB4B28A667B10062D10D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -457,6 +459,7 @@
 			children = (
 				3670FBE628A7FAA80062D10D /* ImageResizer.swift */,
 				3606129A28A8FB87002D8D75 /* IndicatorManager.swift */,
+				360612A328A92659002D8D75 /* AlertManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -677,6 +680,7 @@
 				3670FBDD28A7B1910062D10D /* UIView+Mask.swift in Sources */,
 				3670FB8928A668A60062D10D /* MainModels.swift in Sources */,
 				3670FBDF28A7D25C0062D10D /* String+Basic.swift in Sources */,
+				360612A428A92659002D8D75 /* AlertManager.swift in Sources */,
 				3670FB8828A668A60062D10D /* MainRouter.swift in Sources */,
 				3670FC0228A860E90062D10D /* FileService.swift in Sources */,
 				3670FB8A28A668A60062D10D /* MainViewController.swift in Sources */,

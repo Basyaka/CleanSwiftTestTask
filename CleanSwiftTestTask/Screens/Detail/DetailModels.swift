@@ -23,4 +23,15 @@ enum Detail {
             let image: UIImage
         }
     }
+    
+    enum Error {
+        struct Request {}
+        struct Response {}
+        
+        struct ViewModel {
+            let title: String
+            let subtitle: String
+            let buttonText: String
+        }
+    }
 }
