@@ -10,6 +10,8 @@ import UIKit
 final class DetailViewController: UIViewController {
     // MARK: - Nested Types
     private enum Constants {
+        static let screenTitle: String = "Detail Screen"
+        static let contentOffset: CGFloat = 16
     }
 
     // MARK: - Properties
@@ -17,7 +19,38 @@ final class DetailViewController: UIViewController {
     private let router: DetailRoutingLogic
 
     // MARK: - UI Properties
-
+    private let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        return imageView.prepareForAutoLayout()
+    }()
+    
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let subtitileLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    private lazy var contentStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            imageView,
+            titleLabel,
+            subtitileLabel
+        ])
+        
+        stackView.axis = .vertical
+        stackView.spacing = 5
+        
+        return stackView.prepareForAutoLayout()
+    }()
+    
     // MARK: - Initialization
     init(interactor: DetailBusinessLogic, router: DetailRoutingLogic) {
         self.interactor = interactor
@@ -39,7 +72,10 @@ final class DetailViewController: UIViewController {
 
     // MARK: - Private Methods
     private func startSettings() {
-        initialData()
+        title = Constants.screenTitle
+        view.backgroundColor = .white
+       
+        requestInitialData()
     }
 
     private func configureView() {
@@ -48,18 +84,41 @@ final class DetailViewController: UIViewController {
     }
 
     private func setupSubviews() {
+        view.addSubview(contentStackView)
     }
 
     private func setupLayout() {
+        NSLayoutConstraint.activate([
+            contentStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.contentOffset),
+            contentStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constants.contentOffset),
+            contentStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.contentOffset),
+            contentStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Constants.contentOffset),
+            
+            imageView.heightAnchor.constraint(equalTo: contentStackView.heightAnchor, multiplier: 0.8)
+        ])
+    }
+    
+    private func setupActivityIndicator(state: Bool) {
+        if state {
+            IndicatorManager.shared.showIndicator(for: view)
+        } else {
+            IndicatorManager.shared.hideIndicator(for: view)
+        }
     }
 
     // MARK: - Interactor Methods
-    private func initialData() {
+    private func requestInitialData() {
+        setupActivityIndicator(state: true)
         interactor.requestInitialData(Detail.Initial.Request())
     }
 }
 
 // MARK: - DetailDisplayLogic
 extension DetailViewController: DetailDisplayLogic {
-    func displayInitialData(_ viewModel: Detail.Initial.ViewModel) {}
+    func displayInitialData(_ viewModel: Detail.Initial.ViewModel) {
+        titleLabel.text = viewModel.title
+        subtitileLabel.text = viewModel.description
+        imageView.image = viewModel.image
+        setupActivityIndicator(state: false)
+    }
 }

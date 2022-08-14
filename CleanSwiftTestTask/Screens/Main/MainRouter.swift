@@ -10,8 +10,21 @@ import UIKit
 final class MainRouter: MainRoutingLogic {
     // MARK: - Properties
     weak var viewController: UIViewController?
+    private let dataStore: MainDataStore?
+    
+    // MARK: - Initialization
+    init(dataStore: MainDataStore) {
+        self.dataStore = dataStore
+    }
 
-    func routeToBack() {
-        viewController?.navigationController?.popViewController(animated: true)
+    // MARK: - MainRoutingLogic
+    func routeToDetail() {
+        guard
+            let dataStore = dataStore,
+            let data = dataStore.data
+        else { return }
+        
+        let view = DetailAssembly.assemble(data: data)
+        viewController?.navigationController?.pushViewController(view, animated: true)
     }
 }

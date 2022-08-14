@@ -1,5 +1,5 @@
 //
-//  DetailWorker.swift
+//  DetailNetworkWorker.swift
 //  CleanSwiftTestTask
 //
 //  Created by Vlad Novik on 12.08.22.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class DetailWorker: DetailWorkerLogic {
+final class DetailNetworkWorker: DetailNetworkWorkerLogic {
     // MARK: - Properties
     private let httpClient: HTTPClientProtocol
     
@@ -16,7 +16,7 @@ final class DetailWorker: DetailWorkerLogic {
         self.httpClient = httpClient
     }
     
-    // MARK: - DetailWorkerLogic
+    // MARK: - DetailNetworkWorkerLogic
     func loadProduct(with stringId: String, completion: @escaping ((Result<DetailDTO.Product, HTTPError>) -> Void)) {
         let request = HTTPRequest(
             endpoint: DetailEndpoint.product(stringId: stringId),

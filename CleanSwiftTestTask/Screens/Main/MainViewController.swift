@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 final class MainViewController: UIViewController {
     // MARK: - Nested Types
@@ -16,6 +17,8 @@ final class MainViewController: UIViewController {
     // MARK: - Properties
     private let interactor: MainBusinessLogic
     private let router: MainRoutingLogic
+    
+    private var items: [Main.CollectionView.Item] = []
     
     // MARK: - UI Properties
     private let collectionView = MainCollectionView().prepareForAutoLayout()
@@ -44,12 +47,13 @@ final class MainViewController: UIViewController {
         title = Constants.screenTitle
         view.backgroundColor = .white
         
-        initialData()
+        requestInitialData()
     }
     
     private func configureView() {
         setupSubviews()
         setupLayout()
+        setupActions()
     }
     
     private func setupSubviews() {
@@ -65,8 +69,30 @@ final class MainViewController: UIViewController {
         ])
     }
     
+    private func setupActions() {
+        collectionView.callbackDidSelectItem = { [weak self] indexPath in
+            guard
+                let self = self,
+                let item = self.items[safe: indexPath.row]
+            else { return }
+
+            let request = Main.DataTransmission.Request(productID: item.productID)
+            self.interactor.requestDataTransmission(request)
+            self.router.routeToDetail()
+        }
+    }
+    
+    private func setupActivityIndicator(state: Bool) {
+        if state {
+            IndicatorManager.shared.showIndicator(for: view)
+        } else {
+            IndicatorManager.shared.hideIndicator(for: view)
+        }
+    }
+    
     // MARK: - Interactor Methods
-    private func initialData() {
+    private func requestInitialData() {
+        setupActivityIndicator(state: true)
         interactor.requestInitialData(Main.Initial.Request())
     }
 }
@@ -74,7 +100,7 @@ final class MainViewController: UIViewController {
 // MARK: - MainDisplayLogic
 extension MainViewController: MainDisplayLogic {
     func displayInitialData(_ viewModel: Main.Initial.ViewModel) {
-        let items: [Main.CollectionView.Item] = viewModel.products.map { product in
+        items = viewModel.products.map { product in
             Main.CollectionView.Item(
                 productID: product.productID,
                 title: product.title,
@@ -88,5 +114,9 @@ extension MainViewController: MainDisplayLogic {
         ]
         
         collectionView.sectionsData = sections
+        setupActivityIndicator(state: false)
+    }
+    
+    func displayDataTransmission(_ viewModel: Main.DataTransmission.ViewModel) {
     }
 }

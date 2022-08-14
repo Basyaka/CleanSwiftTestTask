@@ -5,30 +5,55 @@
 //  Created by Vlad Novik on 12.08.22.
 //
 
-final class DetailInteractor: DetailBusinessLogic {
+final class DetailInteractor {
     // MARK: - Properties
+    var data: Main.DetatilDataTransmissionModel
+    
     private let presenter: DetailPresentationLogic
-    private let worker: DetailWorkerLogic
+    private let networkWorker: DetailNetworkWorkerLogic
+    private let storageWorker: DetailStorageWorkerLogic
 
     // MARK: - Initialization
     init(
         presenter: DetailPresentationLogic,
-        worker: DetailWorkerLogic
+        networkWorker: DetailNetworkWorkerLogic,
+        storageWorker: DetailStorageWorkerLogic,
+        data: Main.DetatilDataTransmissionModel
     ) {
         self.presenter = presenter
-        self.worker = worker
+        self.networkWorker = networkWorker
+        self.storageWorker = storageWorker
+        self.data = data
     }
+    
+    // MARK: - Methods
+    private func updateProductStoredData(with productDTO: DetailDTO.Product) {
+        guard let productObject = storageWorker.getProductObject(by: productDTO.productID) else { return }
+        if productObject.productDescription == nil {
+            storageWorker.updateProduct(productObject, description: productDTO.description)
+        }
+    }
+}
 
-    // MARK: - DetailBusinessLogic
+// MARK: - DetailBusinessLogic
+extension DetailInteractor: DetailBusinessLogic {
     func requestInitialData(_ request: Detail.Initial.Request) {
-        worker.loadProduct(with: "6_id_is_a_string") { result in
+        networkWorker.loadProduct(with: data.productID) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let product):
-                print(product)
+                self.updateProductStoredData(with: product)
+                if let product = self.storageWorker.getProduct(by: product.productID) {
+                    let response = Detail.Initial.Response(
+                        title: product.name,
+                        description: product.description,
+                        image: self.storageWorker.getImage(by: product.productID)
+                    )
+                    self.presenter.presentInitialData(response)
+                }
             case .failure(let error):
                 break
             }
         }
-        self.presenter.presentInitialData(Detail.Initial.Response())
     }
 }

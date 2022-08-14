@@ -34,6 +34,15 @@ enum Main {
         }
     }
     
+    enum DataTransmission {
+        struct Request {
+            let productID: String
+        }
+        
+        struct Response {}
+        struct ViewModel {}
+    }
+    
     enum CollectionView {
         struct Section {
             let title: String
@@ -46,5 +55,10 @@ enum Main {
             let subtitle: String
             let image: UIImage
         }
+    }
+    
+    // MARK: - DataToDetailScreen
+    struct DetatilDataTransmissionModel {
+        let productID: String
     }
 }

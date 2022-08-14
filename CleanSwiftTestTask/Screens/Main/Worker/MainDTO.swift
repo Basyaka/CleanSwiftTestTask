@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import UIKit
 
 enum MainDTO {
     struct Response: Decodable {
         let products: [Product]
     }
     
-    struct Product: Decodable {
+    struct Product: Decodable, Equatable {
         let productID: String
         let name: String
         let price: Int
@@ -22,5 +23,10 @@ enum MainDTO {
             case productID = "product_id"
             case name, price, image
         }
+    }
+    
+    struct ImageFile {
+        let image: UIImage
+        let path: String
     }
 }

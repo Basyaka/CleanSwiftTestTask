@@ -8,10 +8,18 @@
 import UIKit
 
 enum DetailAssembly {
-    static func assemble() -> UIViewController {
+    static func assemble(data: Main.DetatilDataTransmissionModel) -> UIViewController {
         let presenter = DetailPresenter()
-        let worker = DetailWorker()
-        let interactor = DetailInteractor(presenter: presenter, worker: worker)
+        let networkWorker = DetailNetworkWorker()
+        let storageWorker = DetailStorageWorker()
+        
+        let interactor = DetailInteractor(
+            presenter: presenter,
+            networkWorker: networkWorker,
+            storageWorker: storageWorker,
+            data: data
+        )
+        
         let router = DetailRouter()
         let viewController = DetailViewController(interactor: interactor, router: router)
 

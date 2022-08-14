@@ -1,5 +1,5 @@
 //
-//  MainWorker.swift
+//  MainNetworkWorker.swift
 //  CleanSwiftTestTask
 //
 //  Created by Vlad Novik on 12.08.22.
@@ -7,21 +7,21 @@
 
 import Foundation
 
-final class MainWorker: MainWorkerLogic {
+final class MainNetworkWorker: MainNetworkWorkerLogic {
     // MARK: - Properties
     private let httpClient: HTTPClientProtocol
     private let imageDownloader: ImageDownloaderProtocol
     
     // MARK: - Initialization
     init(
-        httpClient: HTTPClientProtocol = HTTPClient(),
-        imageDownloader: ImageDownloaderProtocol = ImageDownloader()
+        httpClient: HTTPClientProtocol = NetworkContainer.shared.httpClient,
+        imageDownloader: ImageDownloaderProtocol = NetworkContainer.shared.imageDownloader
     ) {
         self.httpClient = httpClient
         self.imageDownloader = imageDownloader
     }
     
-    // MARK: - MainWorkerLogic
+    // MARK: - MainNetworkWorkerLogic
     func loadProducts(completion: @escaping ((Result<MainDTO.Response, HTTPError>) -> Void)) {
         let request = HTTPRequest(
             endpoint: MainEndpoint.list,
@@ -60,7 +60,7 @@ final class MainWorker: MainWorkerLogic {
         with products: [MainDTO.Product],
         completion: @escaping (Result<[String:Data], HTTPError>) -> Void
     ) {
-        var temporaryStorage: [String:Data] = [:]
+        var temporaryDictStorage: [String:Data] = [:]
         
         let queue = DispatchQueue.global(qos: .utility)
         let group = DispatchGroup()
@@ -77,7 +77,7 @@ final class MainWorker: MainWorkerLogic {
                 self.imageDownloader.fetchImage(with: url) { result in
                     switch result {
                     case .success(let data):
-                        temporaryStorage[product.image] = data
+                        temporaryDictStorage[product.image] = data
                         group.leave()
                     case .failure:
                         completion(.failure(.imageDownloadingFail))
@@ -87,7 +87,7 @@ final class MainWorker: MainWorkerLogic {
             }
             
             group.notify(queue: .main) {
-                completion(.success(temporaryStorage))
+                completion(.success(temporaryDictStorage))
             }
         }
     }

@@ -29,4 +29,8 @@ extension MainPresenter: MainPresentationLogic {
         let viewModel = Main.Initial.ViewModel(products: products)
         viewController?.displayInitialData(viewModel)
     }
+    
+    func presentDataTransmission(_ response: Main.DataTransmission.Response) {
+        viewController?.displayDataTransmission(Main.DataTransmission.ViewModel())
+    }
 }
