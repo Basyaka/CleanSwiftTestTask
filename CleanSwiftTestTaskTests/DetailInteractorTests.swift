@@ -138,7 +138,6 @@ private final class DetailNetworkWorkerMock: DetailNetworkWorkerLogic {
             )
             return completion(.success(product))
         }
-        
     }
 }
 

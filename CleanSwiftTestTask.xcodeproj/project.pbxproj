@@ -59,7 +59,6 @@
 		3670FBDD28A7B1910062D10D /* UIView+Mask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3670FBDC28A7B1910062D10D /* UIView+Mask.swift */; };
 		3670FBDF28A7D25C0062D10D /* String+Basic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3670FBDE28A7D25C0062D10D /* String+Basic.swift */; };
 		3670FBE228A7D8F80062D10D /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3670FBE128A7D8F80062D10D /* ImageDownloader.swift */; };
-		3670FBE728A7FAA80062D10D /* ImageResizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3670FBE628A7FAA80062D10D /* ImageResizer.swift */; };
 		3670FBEA28A80A790062D10D /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 3670FBE928A80A790062D10D /* Realm */; };
 		3670FBEC28A80A790062D10D /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3670FBEB28A80A790062D10D /* RealmSwift */; };
 		3670FBF228A81A3A0062D10D /* ProductObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3670FBF128A81A3A0062D10D /* ProductObject.swift */; };
@@ -144,7 +143,6 @@
 		3670FBDC28A7B1910062D10D /* UIView+Mask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Mask.swift"; sourceTree = "<group>"; };
 		3670FBDE28A7D25C0062D10D /* String+Basic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Basic.swift"; sourceTree = "<group>"; };
 		3670FBE128A7D8F80062D10D /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
-		3670FBE628A7FAA80062D10D /* ImageResizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageResizer.swift; sourceTree = "<group>"; };
 		3670FBF128A81A3A0062D10D /* ProductObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductObject.swift; sourceTree = "<group>"; };
 		3670FBF528A8207C0062D10D /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		3670FBF828A821560062D10D /* NetworkContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkContainer.swift; sourceTree = "<group>"; };
@@ -180,14 +178,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3606129C28A904F9002D8D75 /* Worker */ = {
+		3606129C28A904F9002D8D75 /* Workers */ = {
 			isa = PBXGroup;
 			children = (
 				3670FBA428A6692B0062D10D /* MainDTO.swift */,
 				3606129E28A90508002D8D75 /* Storage */,
 				3606129D28A904FF002D8D75 /* Network */,
 			);
-			path = Worker;
+			path = Workers;
 			sourceTree = "<group>";
 		};
 		3606129D28A904FF002D8D75 /* Network */ = {
@@ -207,14 +205,14 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
-		3606129F28A90C9C002D8D75 /* Worker */ = {
+		3606129F28A90C9C002D8D75 /* Workers */ = {
 			isa = PBXGroup;
 			children = (
 				3670FBA028A669170062D10D /* DetailDTO.swift */,
 				360612A028A90CAA002D8D75 /* Storage */,
 				3670FB9F28A6690D0062D10D /* Network */,
 			);
-			path = Worker;
+			path = Workers;
 			sourceTree = "<group>";
 		};
 		360612A028A90CAA002D8D75 /* Storage */ = {
@@ -310,7 +308,7 @@
 		3670FB7C28A668980062D10D /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				3606129C28A904F9002D8D75 /* Worker */,
+				3606129C28A904F9002D8D75 /* Workers */,
 				3670FBD728A79EFB0062D10D /* Views */,
 				3670FB8528A668A60062D10D /* MainInteractor.swift */,
 				3670FB7E28A668A60062D10D /* MainPresenter.swift */,
@@ -326,7 +324,7 @@
 		3670FB7D28A6689B0062D10D /* Detail */ = {
 			isa = PBXGroup;
 			children = (
-				3606129F28A90C9C002D8D75 /* Worker */,
+				3606129F28A90C9C002D8D75 /* Workers */,
 				3670FB9528A668B00062D10D /* DetailInteractor.swift */,
 				3670FB8E28A668B00062D10D /* DetailPresenter.swift */,
 				3670FB9228A668B00062D10D /* DetailViewController.swift */,
@@ -463,7 +461,6 @@
 		3670FBE528A7FA9A0062D10D /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				3670FBE628A7FAA80062D10D /* ImageResizer.swift */,
 				3606129A28A8FB87002D8D75 /* IndicatorManager.swift */,
 				360612A328A92659002D8D75 /* AlertManager.swift */,
 			);
@@ -669,7 +666,6 @@
 				3670FB9D28A668B00062D10D /* DetailInteractor.swift in Sources */,
 				3670FB9A28A668B00062D10D /* DetailViewController.swift in Sources */,
 				3670FB9B28A668B00062D10D /* DetailProtocols.swift in Sources */,
-				3670FBE728A7FAA80062D10D /* ImageResizer.swift in Sources */,
 				3670FBAA28A66BEE0062D10D /* Array+Safe.swift in Sources */,
 				3670FBBA28A66EF60062D10D /* HTTPMethod.swift in Sources */,
 				3670FB8728A668A60062D10D /* MainNetworkWorker.swift in Sources */,

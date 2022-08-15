@@ -25,7 +25,11 @@ protocol MainNetworkWorkerLogic: AnyObject {
 }
 
 protocol MainStorageWorkerLogic: AnyObject {
-    func proccessProducts(with productDTOs: [MainDTO.Product], completion: @escaping (([MainDTO.Product]) -> Void))
+    func proccessProducts(
+        with productDTOs: [MainDTO.Product],
+        completion: @escaping (([MainDTO.Product]) -> Void)
+    )
+    
     func getProducts() -> [MainDTO.Product]
     func saveImages(with imageFiles: [MainDTO.ImageFile])
     func getImage(by path: String) -> UIImage

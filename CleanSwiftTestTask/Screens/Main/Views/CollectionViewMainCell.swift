@@ -92,10 +92,22 @@ final class CollectionViewMainCell: UICollectionViewCell, CollectionViewCellProt
 
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            contentStackView.topAnchor.constraint(equalTo: topAnchor, constant: Constants.contentOffset),
-            contentStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.contentOffset),
-            contentStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.contentOffset),
-            contentStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.contentOffset),
+            contentStackView.topAnchor.constraint(
+                equalTo: topAnchor,
+                constant: Constants.contentOffset
+            ),
+            contentStackView.leadingAnchor.constraint(
+                equalTo: leadingAnchor,
+                constant: Constants.contentOffset
+            ),
+            contentStackView.trailingAnchor.constraint(
+                equalTo: trailingAnchor,
+                constant: -Constants.contentOffset
+            ),
+            contentStackView.bottomAnchor.constraint(
+                equalTo: bottomAnchor,
+                constant: -Constants.contentOffset
+            ),
             
             imageView.heightAnchor.constraint(equalTo: contentStackView.heightAnchor, multiplier: 0.6)
         ])

@@ -45,7 +45,6 @@ enum Main {
     
     enum Error {
         struct Request {}
-        
         struct Response {}
         
         struct ViewModel {

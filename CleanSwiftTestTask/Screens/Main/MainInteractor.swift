@@ -76,7 +76,7 @@ final class MainInteractor: MainDataStore {
         let productDTOs = storageWorker.getProducts()
         
         if productDTOs.isEmpty {
-            requestError(Main.Error.Request())
+            presenter.presentError(Main.Error.Response())
             return
         }
         

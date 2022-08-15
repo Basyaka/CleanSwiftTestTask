@@ -10,6 +10,7 @@ import UIKit
 final class DetailPresenter {
     // MARK: - Nested Types
     private enum Constants {
+        // TODO: - Extract strings to the localization files .string
         static let errorTitle: String = "Error!"
         static let errorSubtitle: String = "Sorry, we're working on it. Try later."
         static let buttonText: String = "Ok"

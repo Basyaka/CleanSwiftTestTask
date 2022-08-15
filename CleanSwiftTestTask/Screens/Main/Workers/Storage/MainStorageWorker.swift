@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 import UIKit
 
-final class MainStorageWorker: MainStorageWorkerLogic {
+final class MainStorageWorker {
     // MARK: - Properties
     private let realmService: RealmService
     private let fileService: FileServiceProtocol
@@ -23,7 +23,42 @@ final class MainStorageWorker: MainStorageWorkerLogic {
         self.fileService = fileService
     }
     
-    // MARK: - Methods
+    // MARK: - Private Methods
+    private func saveProduct(with dto: MainDTO.Product) {
+        let productObject = ProductObject(productID: dto.productID, name: dto.name, price: dto.price, imagePath: dto.image)
+        realmService.create(productObject)
+    }
+    
+    private func saveProducts(with productDTOs: [MainDTO.Product]) {
+        let productObjects: [ProductObject] = productDTOs.map { dto in
+            ProductObject(
+                productID: dto.productID,
+                name: dto.name,
+                price: dto.price,
+                imagePath: dto.image
+            )
+        }
+        realmService.create(productObjects)
+    }
+    
+    private func convertProductObjectsToDTOs(with productResults: Results<ProductObject>) -> [MainDTO.Product] {
+        productResults.map { productObject in
+            MainDTO.Product(
+                productID: productObject.productID,
+                name: productObject.name,
+                price: productObject.price,
+                image: productObject.imagePath
+            )
+        }
+    }
+    
+    private func convertDTOToRealmObject(with dto: MainDTO.Product) -> ProductObject {
+        ProductObject(productID: dto.productID, name: dto.name, price: dto.price, imagePath: dto.image)
+    }
+}
+
+// MARK: - MainStorageWorkerLogic
+extension MainStorageWorker: MainStorageWorkerLogic {
     func getProducts() -> [MainDTO.Product] {
         let products: Results<ProductObject> = realmService.read()
         let productDTOs: [MainDTO.Product] = products.map { productObject in
@@ -66,38 +101,5 @@ final class MainStorageWorker: MainStorageWorkerLogic {
     
     func getImage(by path: String) -> UIImage {
         fileService.getImage(path: path) ?? UIImage()
-    }
-    
-    // MARK: - Private Methods
-    private func saveProduct(with dto: MainDTO.Product) {
-        let productObject = ProductObject(productID: dto.productID, name: dto.name, price: dto.price, imagePath: dto.image)
-        realmService.create(productObject)
-    }
-    
-    private func saveProducts(with productDTOs: [MainDTO.Product]) {
-        let productObjects: [ProductObject] = productDTOs.map { dto in
-            ProductObject(
-                productID: dto.productID,
-                name: dto.name,
-                price: dto.price,
-                imagePath: dto.image
-            )
-        }
-        realmService.create(productObjects)
-    }
-    
-    private func convertProductObjectsToDTOs(with productResults: Results<ProductObject>) -> [MainDTO.Product] {
-        productResults.map { productObject in
-            MainDTO.Product(
-                productID: productObject.productID,
-                name: productObject.name,
-                price: productObject.price,
-                image: productObject.imagePath
-            )
-        }
-    }
-    
-    private func convertDTOToRealmObject(with dto: MainDTO.Product) -> ProductObject {
-        ProductObject(productID: dto.productID, name: dto.name, price: dto.price, imagePath: dto.image)
     }
 }

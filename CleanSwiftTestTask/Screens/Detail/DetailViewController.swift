@@ -89,12 +89,27 @@ final class DetailViewController: UIViewController {
 
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            contentStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.contentOffset),
-            contentStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constants.contentOffset),
-            contentStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.contentOffset),
-            contentStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Constants.contentOffset),
+            contentStackView.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor,
+                constant: Constants.contentOffset
+            ),
+            contentStackView.leadingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+                constant: Constants.contentOffset
+            ),
+            contentStackView.trailingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+                constant: -Constants.contentOffset
+            ),
+            contentStackView.bottomAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                constant: -Constants.contentOffset
+            ),
             
-            imageView.heightAnchor.constraint(equalTo: contentStackView.heightAnchor, multiplier: 0.8)
+            imageView.heightAnchor.constraint(
+                equalTo: contentStackView.heightAnchor,
+                multiplier: 0.8
+            )
         ])
     }
     

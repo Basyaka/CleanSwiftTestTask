@@ -11,6 +11,7 @@ final class DetailRouter: DetailRoutingLogic {
     // MARK: - Properties
     weak var viewController: UIViewController?
 
+    // MARK: - DetailRoutingLogic
     func routeToBack() {
         viewController?.navigationController?.popViewController(animated: true)
     }

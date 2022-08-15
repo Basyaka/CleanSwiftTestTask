@@ -118,6 +118,7 @@ extension MainViewController: MainDisplayLogic {
     }
     
     func displayDataTransmission(_ viewModel: Main.DataTransmission.ViewModel) {
+        // Wea re finishing VIP cycle. If neccessary, you can add functionality
     }
     
     func displayError(_ viewModel: Main.Error.ViewModel) {

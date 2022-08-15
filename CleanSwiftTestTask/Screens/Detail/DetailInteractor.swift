@@ -26,7 +26,7 @@ final class DetailInteractor {
         self.data = data
     }
     
-    // MARK: - Methods
+    // MARK: - Private Methods
     private func updateProductStoredData(with productDTO: DetailDTO.Product) {
         guard let productObject = storageWorker.getProductObject(by: productDTO.productID) else { return }
         if productObject.productDescription == nil {

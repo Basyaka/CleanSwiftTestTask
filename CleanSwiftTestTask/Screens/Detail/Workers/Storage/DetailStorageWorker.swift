@@ -9,6 +9,11 @@ import UIKit
 import RealmSwift
 
 final class DetailStorageWorker: DetailStorageWorkerLogic {
+    // MARK: - Nested Types
+    private enum Constants {
+        static let productDescriptionKey: String = "productDescription"
+    }
+    
     // MARK: - Properties
     private let realmService: RealmService
     private let fileService: FileServiceProtocol
@@ -22,7 +27,7 @@ final class DetailStorageWorker: DetailStorageWorkerLogic {
         self.fileService = fileService
     }
     
-    // MARK: - Methods
+    // MARK: - DetailStorageWorkerLogic
     func getProduct(by primaryKey: String) -> DetailDTO.Product? {
         guard
             let productObject = realmService.realm.object(ofType: ProductObject.self, forPrimaryKey: primaryKey)
@@ -42,7 +47,7 @@ final class DetailStorageWorker: DetailStorageWorkerLogic {
     }
     
     func updateProduct(_ productObject: ProductObject, description: String) {
-        let dict: [String: Any?] = ["productDescription": description]
+        let dict: [String: Any?] = [Constants.productDescriptionKey: description]
         realmService.update(productObject, with: dict)
     }
     
