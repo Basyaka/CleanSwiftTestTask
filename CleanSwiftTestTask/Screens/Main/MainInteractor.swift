@@ -58,13 +58,24 @@ final class MainInteractor: MainDataStore {
         return products
     }
     
+    private func saveImages(
+        with productDTOs: [MainDTO.Product],
+        and temporaryStorage: [String: Data]
+    ) {
+        let products = convertProductDTOsToProduct(
+            with: productDTOs,
+            imagesData: temporaryStorage
+        )
+        let imageFiles = createImageFiles(with: products)
+        storageWorker.saveImages(with: imageFiles)
+    }
+    
     private func loadImages(for productDTOs: [MainDTO.Product]) {
         networkWorker.loadImages(with: productDTOs) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let temporaryDictStorage):
-                let products = self.convertProductDTOsToProduct(with: productDTOs, imagesData: temporaryDictStorage)
-                self.storageWorker.saveImages(with: self.createImageFiles(with: products))
+                self.saveImages(with: productDTOs, and: temporaryDictStorage)
                 self.loadProductsFromStorage()
             case .failure:
                 self.loadProductsFromStorage()
@@ -88,8 +99,20 @@ final class MainInteractor: MainDataStore {
                 image: self.storageWorker.getImage(by: dto.productID)
             )
         }
+        
         let response = Main.Initial.Response(products: products)
         presenter.presentInitialData(response)
+    }
+    
+    private func processReceivedProducts(with products: [MainDTO.Product]) {
+        storageWorker.proccessProducts(with: products) { [weak self] nonStoredProductDTOs in
+            guard let self = self else { return }
+            if nonStoredProductDTOs.isEmpty {
+                self.loadProductsFromStorage()
+            } else {
+                self.loadImages(for: nonStoredProductDTOs)
+            }
+        }
     }
 }
 
@@ -100,14 +123,7 @@ extension MainInteractor: MainBusinessLogic {
             guard let self = self else { return }
             switch result {
             case .success(let response):
-                self.storageWorker.proccessProducts(with: response.products) { [weak self] nonStoredProductDTOs in
-                    guard let self = self else { return }
-                    if nonStoredProductDTOs.isEmpty {
-                        self.loadProductsFromStorage()
-                    } else {
-                        self.loadImages(for: nonStoredProductDTOs)
-                    }
-                }
+                self.processReceivedProducts(with: response.products)
             case .failure:
                 self.loadProductsFromStorage()
             }

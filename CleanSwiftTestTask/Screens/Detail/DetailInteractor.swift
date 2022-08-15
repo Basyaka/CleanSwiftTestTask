@@ -34,9 +34,22 @@ final class DetailInteractor {
         }
     }
     
-    private func processFailure() {
+    private func processNetworkFailure() {
         if let product = storageWorker.getProduct(by: data.productID),
            !product.description.isEmpty {
+            let response = Detail.Initial.Response(
+                title: product.name,
+                description: product.description,
+                image: storageWorker.getImage(by: product.productID)
+            )
+            presenter.presentInitialData(response)
+        } else {
+            presenter.presentError(Detail.Error.Response())
+        }
+    }
+    
+    private func proccessReceivingProductFromStorage(with productID: String) {
+        if let product = self.storageWorker.getProduct(by: productID) {
             let response = Detail.Initial.Response(
                 title: product.name,
                 description: product.description,
@@ -44,7 +57,7 @@ final class DetailInteractor {
             )
             self.presenter.presentInitialData(response)
         } else {
-            presenter.presentError(Detail.Error.Response())
+            self.presenter.presentError(Detail.Error.Response())
         }
     }
 }
@@ -57,16 +70,9 @@ extension DetailInteractor: DetailBusinessLogic {
             switch result {
             case .success(let product):
                 self.updateProductStoredData(with: product)
-                if let product = self.storageWorker.getProduct(by: product.productID) {
-                    let response = Detail.Initial.Response(
-                        title: product.name,
-                        description: product.description,
-                        image: self.storageWorker.getImage(by: product.productID)
-                    )
-                    self.presenter.presentInitialData(response)
-                }
+                self.proccessReceivingProductFromStorage(with: product.productID)
             case .failure:
-                self.processFailure()
+                self.processNetworkFailure()
             }
         }
     }
