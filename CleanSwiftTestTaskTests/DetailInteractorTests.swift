@@ -97,7 +97,7 @@ class DetailInteractorTests: XCTestCase {
             name: "",
             price: 0,
             image: "",
-            description: ""
+            description: "notEmpty"
         )
         
         sut.requestInitialData(Detail.Initial.Request())

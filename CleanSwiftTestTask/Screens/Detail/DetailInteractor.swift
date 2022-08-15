@@ -34,22 +34,9 @@ final class DetailInteractor {
         }
     }
     
-    private func processNetworkFailure() {
-        if let product = storageWorker.getProduct(by: data.productID),
-           !product.description.isEmpty {
-            let response = Detail.Initial.Response(
-                title: product.name,
-                description: product.description,
-                image: storageWorker.getImage(by: product.productID)
-            )
-            presenter.presentInitialData(response)
-        } else {
-            presenter.presentError(Detail.Error.Response())
-        }
-    }
-    
     private func proccessReceivingProductFromStorage(with productID: String) {
-        if let product = storageWorker.getProduct(by: productID) {
+        if let product = storageWorker.getProduct(by: productID),
+           !product.description.isEmpty {
             let response = Detail.Initial.Response(
                 title: product.name,
                 description: product.description,
@@ -72,7 +59,7 @@ extension DetailInteractor: DetailBusinessLogic {
                 self.updateProductStoredData(with: product)
                 self.proccessReceivingProductFromStorage(with: product.productID)
             case .failure:
-                self.processNetworkFailure()
+                self.proccessReceivingProductFromStorage(with: self.data.productID)
             }
         }
     }
