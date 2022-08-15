@@ -49,15 +49,15 @@ final class DetailInteractor {
     }
     
     private func proccessReceivingProductFromStorage(with productID: String) {
-        if let product = self.storageWorker.getProduct(by: productID) {
+        if let product = storageWorker.getProduct(by: productID) {
             let response = Detail.Initial.Response(
                 title: product.name,
                 description: product.description,
-                image: self.storageWorker.getImage(by: product.productID)
+                image: storageWorker.getImage(by: product.productID)
             )
-            self.presenter.presentInitialData(response)
+            presenter.presentInitialData(response)
         } else {
-            self.presenter.presentError(Detail.Error.Response())
+            presenter.presentError(Detail.Error.Response())
         }
     }
 }

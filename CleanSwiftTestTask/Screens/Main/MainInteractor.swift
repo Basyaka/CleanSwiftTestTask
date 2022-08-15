@@ -37,8 +37,8 @@ final class MainInteractor: MainDataStore {
     
     private func convertProductDTOsToProduct(
         with productDTOs: [MainDTO.Product],
-        imagesData: [String:Data])
-    -> [Main.Initial.Response.Product] {
+        imagesData: [String:Data]
+    ) -> [Main.Initial.Response.Product] {
         var products: [Main.Initial.Response.Product] = []
         
         productDTOs.forEach { productDTO in
@@ -96,7 +96,7 @@ final class MainInteractor: MainDataStore {
                 productID: dto.productID,
                 title: dto.name,
                 price: dto.price,
-                image: self.storageWorker.getImage(by: dto.productID)
+                image: storageWorker.getImage(by: dto.productID)
             )
         }
         
